@@ -4,8 +4,12 @@ import discord.utils
 from discord.ext import commands, tasks
 from discord.ext.commands import Bot
 
+#Establishes API key for discord
+my_secret = os.environ['client_secret'] 
+client =  discord.Client(intents=discord.Intents.all())
+
 #Makes bot object for bot functionalities
-bot = commands.Bot(command_prefix = "!", intents=discord.Intents.all())
+bot = commands.Bot(command_prefix = "=", intents=discord.Intents.all())
 client =  discord.Client(intents=discord.Intents.all())
 
 #loads/unloads cogs for Discord Bot
@@ -25,3 +29,6 @@ for filename in os.listdir('./cogs'):
 @bot.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
+
+bot.run(my_secret)
+client.run(my_secret)
