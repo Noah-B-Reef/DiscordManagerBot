@@ -9,15 +9,17 @@ my_secret = os.environ['secret']
 my_username= os.environ['username']
 my_password = os.environ['password']
 
-
+# Discord Bot Cog responsible for parsing memes from Reddit
 class Memes(commands.Cog):
   def __init__(self, bot):
     self.bot = bot
   
+  # Displays when cog has been loaded in
   @commands.Cog.listener()
   async def on_ready(self):
     print(f"{self.__class__.__name__} Cog has been loaded\n-----")
 
+  # 'Meme' Command
   @commands.command(name='meme',description="sends a meme in chat")
   async def Meme(self, ctx):
     reddit = praw.Reddit(client_id = my_client, client_secret = my_secret, username = my_username, password = my_password, user_agent = "prawpython",check_for_async=False)
