@@ -15,7 +15,7 @@ class Rules(commands.Cog):
   async def on_ready(self):
     print(f"{self.__class__.__name__} Cog has been loaded\n-----")
   
-  @commands.command(name="ruleSetup", description="Sets the rules for the server!")
+  @commands.command(name="rulesetup", description="Sets the rules for the server!")
   @commands.has_permissions(administrator=True)
   async def rulesetup(self,ctx):
 
