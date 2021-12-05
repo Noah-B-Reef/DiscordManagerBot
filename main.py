@@ -3,6 +3,7 @@ import discord
 import discord.utils
 from discord.ext import commands, tasks
 from discord.ext.commands import Bot
+from replit import db
 
 #Establishes API key for discord
 my_secret = os.environ['client_secret'] 
@@ -30,5 +31,8 @@ for filename in os.listdir('./cogs'):
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
 
+
+
+  
 bot.run(my_secret)
 client.run(my_secret)
