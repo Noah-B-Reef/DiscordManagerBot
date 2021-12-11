@@ -1,4 +1,4 @@
-# Discord Manager Bot
+# Discord Manager Bot (Manager 1.0)
 Thank you for checking out my Discord Server Manager Bot. This project is a Discord bot that is able to automate certain tasks,
 such as muting a user, and bring added functionalities, such as serving up memes from Reddit, making this bot a great addition
 to any Discord server. Below is a list of commands to help get you started with understanding the bot.
