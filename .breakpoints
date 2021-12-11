@@ -3,9 +3,9 @@
     "poetry.lock": [
       {
         "id": "cd8ff257-729f-4689-84c8-810558a9de9a",
-        "line": 214,
-        "version": 21,
-        "index": 5111
+        "line": 51,
+        "version": 23,
+        "index": 1525
       }
     ]
   }

@@ -3,51 +3,28 @@ import discord
 import discord.utils
 from discord.ext import commands, tasks
 from discord.ext.commands import Bot
-try:
-  import mysql.connector
-except:
-  os.system('pip install mysql-connector-python')
-  import mysql.connector
-from mysql.connector.constants import ClientFlag
+from replit import db
 
 
 #Establishes API key for discord
 my_secret = os.environ['client_secret'] 
 client =  discord.Client(intents=discord.Intents.all())
 
-#Establishes connection to mysql database
-password = os.environ['db-password']
-username = os.environ['db-username']
-IP = os.environ['db-IP']
-
-db =  mysql.connector.connect(
-  host = IP,
-  user = username,
-  passwd = password,
-  database = "preferences"
-)
-
-crsr = db.cursor()
-
-
 
 # Function for getting server prefix from database
 async def determine_prefix(bot, message):
-  guild = message.guild
-  crsr.execute("SELECT server_id FROM prefixes WHERE server_id= %s", (int(guild.id),))
-  result = crsr.fetchone()
-  if result != None:
-       crsr.execute("SELECT prefix FROM prefixes WHERE server_id=%s", (int(guild.id),))
-       return crsr.fetchone()
-  else:
-     crsr.execute("INSERT INTO prefixes (server_id, prefix) VALUES(%s,%s)", (guild.id, "!",))
-     crsr.execute("SELECT prefix FROM prefixes WHERE server_id=%s", (int(guild.id),))
-     return crsr.fetchone()
+  guild = message.guild.id
+  try:
+    prefix = db[str(guild)][0]["prefix"]
+  except:
+    prefix = "!"
+  
+  return prefix
+  
 
 #Makes bot object for bot functionalities
 bot = commands.Bot(command_prefix = determine_prefix, intents=discord.Intents.all())
 client =  discord.Client(intents=discord.Intents.all())
-
 
 
 #loads/unloads cogs for Discord Bot
@@ -68,11 +45,15 @@ for filename in os.listdir('./cogs'):
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
 
-@bot.command()
-async def setprefix(ctx, new_prefix):
-  crsr.execute("UPDATE prefixes SET prefix=%s WHERE server_id=%s", (new_prefix, int(ctx.guild.id)))
-    
-  await ctx.send("The new prefix for the server is " + str(new_prefix))
+# Adds new server to database
+@bot.event
+async def on_guild_join(guild):
+  server_id = guild.id
+  if len(db.prefix(str(server_id))) == 0:
+    print("server added")
+    db[str(server_id)] = [{"prefix" : "!", "profanity toggle" : "ON"}]
+  
+  
 bot.run(my_secret)
 client.run(my_secret)
 
