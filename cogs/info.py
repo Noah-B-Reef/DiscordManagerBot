@@ -20,7 +20,8 @@ class Info(commands.Cog):
   @commands.Cog.listener()
   async def on_guild_join(self, guild):
     owner = guild.owner
-    await owner.send("hi there!")
+    embed=discord.Embed(title= "Thanks for Inviting Manager 1.0", description="Thank you for checking out Manager 1.0, a Discord Manager Bot! To get started check out: https://github.com/Noah-B-Reef/DiscordManagerBot/blob/main/README.md for more information related to commands for the bot. Have fun!", color=0xFF5733)
+    await owner.send(embed=embed)
   
 def setup(bot):
   bot.add_cog(Info(bot))
