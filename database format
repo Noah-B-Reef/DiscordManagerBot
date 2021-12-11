@@ -1,0 +1,9 @@
+In spirit of utilizing replit's built database, which follows a key-value pairing format, we will store data by the following:
+
+  Information related to server preferences -   
+  db["#server id#"] = [{"prefix" : #server's prefix#, "profanity toggle" : #toggle option#}]
+
+
+
+
+
