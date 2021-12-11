@@ -23,7 +23,7 @@ class Mute(commands.Cog):
   # 'mute' command
   @commands.command(name='mute',description="mutes server member for specified time frame.")
   @commands.has_permissions(administrator=True)
-  async def mute(self, ctx, user: discord.Member , mute_time: int, description: str):
+  async def mute(self, ctx, user: discord.Member , mute_time: int):
 
     guild = await(self.bot.fetch_guild(ctx.message.guild.id))
 
@@ -35,7 +35,7 @@ class Mute(commands.Cog):
     await member.add_roles(muterole)
 
     # Informs user of being muted
-    embed=discord.Embed(title= "Muted", description="You muted " + user.mention + "for " + str(mute_time) + " seconds!" + " This was due to the following reason(s): " + description, color=0xFF5733)
+    embed=discord.Embed(title= "Muted", description="You muted " + user.mention + "for " + str(mute_time) + " seconds!", color=0xFF5733)
     await ctx.send(embed=embed)
 
     # Holds and un-mutes user after specified time
